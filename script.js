@@ -17,8 +17,25 @@ class Stopwatch {
      
     }
     
+    restart() {
+        this.running = false;
+        this.times = {
+            minutes: 0,
+            seconds: 0,
+            miliseconds: 0
+        };
+        this.print(this.times);
+    }
+    
     print() {
         this.display.innerText = this.format(this.times);
+        
+    }
+    
+    printTime() {
+        let timePr = this.display.innerText;
+        console.log(timePr);
+        return `${createList(timePr)}`
         
     }
     
@@ -56,6 +73,7 @@ class Stopwatch {
         clearInterval(this.watch);
     }
     
+    
  }
 
 function pad0(value) {
@@ -66,6 +84,11 @@ function pad0(value) {
     return result;
 }
 
+const createList = (x) => {
+    let ul = document.getElementsByClassName('results');
+    let li = document.createTextNode(x);
+    ul.appendChild(li);
+}
 
 
 const stopwatch = new Stopwatch(
@@ -78,4 +101,7 @@ var stopButton = document.getElementById('stop');
 stopButton.addEventListener('click', () => stopwatch.stop());
 
 var resetButton = document.getElementById('reset');
-resetButton.addEventListener('click', () => stopwatch.reset());
+resetButton.addEventListener('click', () => stopwatch.restart());
+
+var printButton = document.getElementById('print');
+printButton.addEventListener('click', () => stopwatch.printTime());

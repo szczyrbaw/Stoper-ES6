@@ -25,9 +25,27 @@ var Stopwatch = function () {
             };
         }
     }, {
+        key: 'restart',
+        value: function restart() {
+            this.running = false;
+            this.times = {
+                minutes: 0,
+                seconds: 0,
+                miliseconds: 0
+            };
+            this.print(this.times);
+        }
+    }, {
         key: 'print',
         value: function print() {
             this.display.innerText = this.format(this.times);
+        }
+    }, {
+        key: 'printTime',
+        value: function printTime() {
+            var timePr = this.display.innerText;
+            console.log(timePr);
+            return '' + createList(timePr);
         }
     }, {
         key: 'format',
@@ -85,6 +103,12 @@ function pad0(value) {
     return result;
 }
 
+var createList = function createList(x) {
+    var ul = document.getElementsByClassName('results');
+    var li = document.createTextNode(x);
+    ul.appendChild(li);
+};
+
 var stopwatch = new Stopwatch(document.querySelector('.stopwatch'));
 
 var startButton = document.getElementById('start');
@@ -99,5 +123,10 @@ stopButton.addEventListener('click', function () {
 
 var resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', function () {
-    return stopwatch.reset();
+    return stopwatch.restart();
+});
+
+var printButton = document.getElementById('print');
+printButton.addEventListener('click', function () {
+    return stopwatch.printTime();
 });
