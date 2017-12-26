@@ -1,20 +1,21 @@
 
-class Stopwatch {
-    constructor(display) {
+class Stopwatch extends React.Component {
+    constructor() {
+        super();
         this.running = false;
-        this.display = display;
         this.reset();
-        this.print(this.times);
+        
     }
     
     reset() {
-        
-        this.times = {
-            minutes: 0,
-            seconds: 0,
-            miliseconds: 0
+        this.state = {
+            times: {
+                minutes: 0,
+                seconds: 0,
+                miliseconds: 0
+            }
         };
-     
+             
     }
     
     print() {
@@ -36,29 +37,51 @@ class Stopwatch {
     step() {
         if (!this.running) return;
         this.calculate();
-        this.print();
+        
     }
     
     calculate() {
-        this.times.miliseconds += 1;
-        if (this.times.miliseconds >= 100) {
-            this.times.seconds += 1;
-            this.times.miliseconds = 0;
-        }
-        if (this.times.seconds >= 60) {
-            this.times.minutes += 1;
-            this.times.seconds = 0;
-        }
-    }
+		let newTimes = {
+			miliseconds: this.state.times.miliseconds,
+			seconds : this.state.times.seconds,
+			minutes: this.state.times.minutes
+		};
+
+		newTimes.miliseconds += 1;
+
+		if(newTimes.miliseconds >= 100) {
+			newTimes.seconds += 1;
+			newTimes.miliseconds = 0;
+		}
+		if (newTimes.seconds >=60) {
+			newTimes.minutes += 1;
+			newTimes.seconds = 0;
+		}
+		this.setState({times: newTimes});
+	}
     
     stop() {
         this.running = false;
         clearInterval(this.watch);
     }
+
+    render() {
+        return(
+			<div className='container'>
+				<nav className='buttons'>
+					<button onClick={event => this.start(event)}>Start</button>
+					<button onClick={event => this.stop(event)}>Stop</button>
+					<button onClick={event => this.reset(event)}>Reset</button>
+				</nav>
+				{this.format(this.state.times)}
+			</div>
+		);
+    }
     
  }
 
-function pad0(value) {
+
+const pad0 = (value) => {
     let result = value.toString();
     if (result.length < 2) {
         result = '0' + result;
@@ -66,16 +89,16 @@ function pad0(value) {
     return result;
 }
 
+ReactDOM.render(<Stopwatch/>, document.getElementById('app')); 
 
-
-const stopwatch = new Stopwatch(
-document.querySelector('.stopwatch'));
-
-var startButton = document.getElementById('start');
-startButton.addEventListener('click', () => stopwatch.start());
-
-var stopButton = document.getElementById('stop');
-stopButton.addEventListener('click', () => stopwatch.stop());
-
-var resetButton = document.getElementById('reset');
-resetButton.addEventListener('click', () => stopwatch.reset());
+//const stopwatch = new Stopwatch(
+//document.querySelector('.stopwatch'));
+//
+//const startButton = document.getElementById('start');
+//startButton.addEventListener('click', () => stopwatch.start());
+//
+//const stopButton = document.getElementById('stop');
+//stopButton.addEventListener('click', () => stopwatch.stop());
+//
+//const resetButton = document.getElementById('reset');
+//resetButton.addEventListener('click', () => stopwatch.reset());

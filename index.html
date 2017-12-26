@@ -7,14 +7,15 @@
   </head>
   <body>
     <nav class="controls">
-      <a href="#" class="button" id="start">Start</a>
-      <a href="#" class="button" id="stop">Stop</a>
-      <a href="#" class="button" id="reset">Reset</a>
-      <a href="#" class="button" id="print">Print</a>
+
     </nav>
+    <div id="app"></div>
     <div class="stopwatch"></div>
     <ul class="results"></ul>
-    <script type="text/javascript" src="script.js"></script>
-    <script type="text/javascript" src="script-compiled.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.js"></script>
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+    <script type="text/babel" src="script.js"></script>
+    
   </body>
 </html>
