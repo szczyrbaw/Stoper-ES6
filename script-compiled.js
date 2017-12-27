@@ -27,7 +27,7 @@ var Stopwatch = function () {
     }, {
         key: 'restart',
         value: function restart() {
-            this.running = false;
+
             this.times = {
                 minutes: 0,
                 seconds: 0,
@@ -43,9 +43,10 @@ var Stopwatch = function () {
     }, {
         key: 'printTime',
         value: function printTime() {
-            var timePr = this.display.innerText;
-            console.log(timePr);
-            return '' + createList(timePr);
+            var ul = document.getElementById('results');
+            var li = document.createElement('li');
+            li.innerText = this.format(this.times);
+            ul.appendChild(li);
         }
     }, {
         key: 'format',

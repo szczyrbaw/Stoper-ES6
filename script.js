@@ -18,7 +18,7 @@ class Stopwatch {
     }
     
     restart() {
-        this.running = false;
+        
         this.times = {
             minutes: 0,
             seconds: 0,
@@ -33,10 +33,10 @@ class Stopwatch {
     }
     
     printTime() {
-        let timePr = this.display.innerText;
-        console.log(timePr);
-        return `${createList(timePr)}`
-        
+        let ul = document.getElementById('results');
+        let li = document.createElement('li');
+        li.innerText = this.format(this.times);
+        ul.appendChild(li);        
     }
     
     format(times) {
